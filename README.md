@@ -4,6 +4,22 @@
 
 **video-annote** is a lightweight **multi-video annotation tool** (PyQt5) for labeling time ranges (“labels”) while reviewing one or more videos.
 
+## Quick install
+
+For a fast setup, use Conda:
+
+```bash
+conda create -n video-annote python=3.10 -y
+conda activate video-annote
+conda install -c conda-forge ffmpeg -y
+pip install video-annote
+python -m video_annote
+```
+
+This installs Python, `ffmpeg/ffprobe`, and `video-annote` in one environment.
+
+---
+
 You can:
 - Create/import sessions that contain multiple videos (local files or URLs)
 - Choose a **Time Source** (master timeline) and an **Audio Source**
@@ -11,6 +27,7 @@ You can:
 - Mark **start/end** for labels and save annotations
 - Review and edit annotations via a **timeline** and a **table**
 - Autosave session state as you work
+- Click **Finish Session** when you are done to reset the workspace for a new session; your work is already being saved on the fly
 
 ---
 
@@ -30,42 +47,6 @@ You can:
 `video-annote` uses `ffmpeg/ffprobe` for:
 - importing URL-based videos (including `.m3u8`)
 - reading duration/FPS reliably
-
----
-
-## Install ffmpeg + ffprobe
-
-Pick **one** method below.
-
-### Option A: Conda
-If you plan to use Conda for Python, install ffmpeg into the same environment:
-
-```bash
-conda install -c conda-forge ffmpeg -y
-```
-
-### Option B: macOS (Homebrew)
-
-```bash
-brew install ffmpeg
-```
-
-### Option C: Ubuntu / Debian
-
-```bash
-sudo apt-get update
-sudo apt-get install -y ffmpeg
-```
-
-### Option D: Windows
-- Install ffmpeg (includes ffprobe) and add it to your **PATH**.
-
-After installing, verify:
-
-```bash
-ffmpeg -version
-ffprobe -version
-```
 
 ---
 
@@ -129,6 +110,10 @@ Click **Select Root** and choose a folder where sessions will be stored.
     - **URL…** (downloadable URL or `.m3u8` — requires ffmpeg)
 - **Import Existing Session**
   - Loads an already-saved session from the Data Root
+
+### 2.5) Finish a session when you are done
+- Click **Finish Session** to reset/clear the current workspace after completing a session
+- Your annotations and session changes are already autosaved as you work, so **Finish Session** is mainly for wrapping up and starting fresh
 
 ### 3) Choose which videos are visible
 Use **Selected videos** (multi-select) to choose which videos appear in the grid.
@@ -212,6 +197,10 @@ On some systems, playback smoothness depends on your computer’s performance an
 Sometimes, after reaching the end of the **Time Source**, playback may jump back to **00:00**.  This usually happens while labeling (after **Confirm Start** or after clicking **End**), **Confirm End** may not save because the end time becomes earlier than the start time.
 
 **Fix:** drag the timeline slider to the desired label end time (away from the start time), then click **Confirm End** again.
+
+
+### When should I click Finish Session?
+Use **Finish Session** after you are done annotating and want to reset the UI/workspace before starting another session. You do **not** need it to save your work — session data and annotations are saved automatically as you work.
 
 ## License
 
